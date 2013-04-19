@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MAP_LEVEL_GOLDMINER>
+    <MAP_LEVEL level = "1" >
+        <BACKGROUND_IMAGE>
+            <LOCATION_FILE pathDirectory = "gfx/" pathImage = "map/bg.png"></LOCATION_FILE>
+            <POSITION posX = "0" posY = "0"></POSITION>
+            <BUFFER_SIZE bufferWidth = "512" bufferHeight = "128"></BUFFER_SIZE>
+            <RECTANGLE_DRAW rectangleWidth = "480" rectangleHeight = "60"></RECTANGLE_DRAW>
+        </BACKGROUND_IMAGE>
+        <BACKGROUND_IMAGE>
+            <LOCATION_FILE pathDirectory = "gfx/" pathImage = "map/bg1.png"></LOCATION_FILE>
+            <POSITION posX = "0" posY = "0"></POSITION>
+            <BUFFER_SIZE bufferWidth = "512" bufferHeight = "512"></BUFFER_SIZE>
+            <RECTANGLE_DRAW rectangleWidth = "480" rectangleHeight = "260"></RECTANGLE_DRAW>
+        </BACKGROUND_IMAGE>   
+        
+        
+    </MAP_LEVEL>
+</MAP_LEVEL_GOLDMINER>
