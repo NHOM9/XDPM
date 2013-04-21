@@ -1,0 +1,24 @@
+<MAN_CHOI id = "2" tien="786" thoi_gian="60">
+	<DOI_TUONG>
+		<VANG loai="vua" gia_tri="100" x="8" y="155"/>
+		<DA loai="nhon" gia_tri="11" x="6" y="230"/>
+		<VANG loai="nho" gia_tri="50" x="31" y="324"/>
+		<DA loai="nhon" gia_tri="11" x="33" y="294"/>
+		<VANG loai="lon" gia_tri="500" x="25" y="165"/>
+		<DA loai="nhan" gia_tri="11" x="56" y="200"/>
+		<DA loai="nhon" gia_tri="11" x="78" y="234"/>
+		<VANG loai="nho" gia_tri="50" x="92" y="270"/>
+		<VANG loai="lon" gia_tri="500" x="92" y="140"/>
+		<DA loai="nhan" gia_tri="11" x="82" y="210"/>
+		<BAO_TIEN gia_tri="tangsucmanh" x="139" y="164"/>
+		<DA loai="nhon" gia_tri="11" x="175" y="210"/>
+		<VANG loai="nho" gia_tri="50" x="201" y="164"/>
+		<VANG loai="nho" gia_tri="50" x="209" y="338"/>
+		<VANG loai="nho" gia_tri="50" x="214" y="290"/>
+		<VANG loai="vua" gia_tri="100" x="223" y="230"/>
+		<DA loai="nhan" gia_tri="11" x="239" y="320"/>
+		<VANG loai="nho" gia_tri="50" x="262" y="350"/>
+		<VANG loai="nho" gia_tri="50" x="273" y="276"/>
+		<VANG loai="vua" gia_tri="50" x="281" y="150"/>
+	</DOI_TUONG
+</MAN_CHOI>

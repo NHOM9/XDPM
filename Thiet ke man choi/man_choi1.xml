@@ -1,0 +1,21 @@
+<MAN_CHOI id = "1" tien="650" thoi_gian="60">
+	<DOI_TUONG>
+		<VANG loai="nho" gia_tri="50" x="55" y="340"/>
+		<DA loai="nhan" gia_tri="11" x="31" y="310"/>
+		<VANG loai="lon" gia_tri="500" x="33" y="236"/>
+		<VANG loai="nho" gia_tri="50" x="88" y="280"/>
+		<VANG loai="vua" gia_tri="100" x="56" y="150"/>
+		<VANG loai="vua" gia_tri="100" x="118" y="190"/>
+		<DA loai="nhon" gia_tri="11" x="92" y="130"/>
+		<VANG loai="vua" gia_tri="100" x="161" y="280"/>
+		<BAO_TIEN gia_tri="500" x="198" y="140"/>
+		<DA loai="nhon" gia_tri="11" x="221" y="225"/>
+		<VANG loai="nho" gia_tri="50" x="246" y="285"/>
+		<VANG loai="nho" gia_tri="50" x="248" y="265"/>
+		<VANG loai="nho" gia_tri="50" x="265" y="330"/>
+		<DA loai="nhan" gia_tri="11" x="300" y="240"/>
+		<VANG loai="nho" gia_tri="50" x="261" y="350"/>
+		<VANG loai="nho" gia_tri="50" x="276" y="270"/>
+		<VANG loai="vua" gia_tri="100" x="281" y="150"/>
+	</DOI_TUONG>
+</MAN_CHOI>
