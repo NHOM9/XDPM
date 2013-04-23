@@ -101,17 +101,7 @@ public class Shop_Item {
 					final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 
 				if (pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN) {
-					System.out
-							.println("MyScene onSceneTouchEvent: chạm vào shopItem");
-					System.out.println("Tọa độ X = " + pSceneTouchEvent.getX());
-					System.out.println("Tọa độ Y = " + pSceneTouchEvent.getY());
-					if (animatedSprite.getCurrentTileIndex() == 0) {
-						choosed = true;
-						animatedSprite.setCurrentTileIndex(1, 0);
-					} else {
-						choosed = false;
-						animatedSprite.setCurrentTileIndex(0, 0);
-					}
+					setChoosed(!isChoosed());
 				}
 				return true;
 			}
@@ -125,6 +115,10 @@ public class Shop_Item {
 		return choosed;
 	}
 
+	public void setChoosed(boolean b) {
+		choosed = b;
+	}
+
 	public BitmapTextureAtlas GetbitmapTextureAtlas() {
 		return this.bitmapTextureAtlas;
 
@@ -134,4 +128,13 @@ public class Shop_Item {
 		return cost;
 	}
 
+	public void update() {
+		if (this.isChoosed()) {
+			choosed = true;
+			animatedSprite.setCurrentTileIndex(1, 0);
+		} else {
+			choosed = false;
+			animatedSprite.setCurrentTileIndex(0, 0);
+		}
+	}
 }

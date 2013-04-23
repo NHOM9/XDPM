@@ -1,5 +1,7 @@
 package com.hnghia.animationexample;
 
+import java.util.ArrayList;
+
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.handler.IUpdateHandler;
@@ -8,30 +10,18 @@ import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.Scene.IOnSceneTouchListener;
-import org.anddev.andengine.entity.scene.background.ColorBackground;
 import org.anddev.andengine.entity.scene.background.RepeatingSpriteBackground;
-import org.anddev.andengine.entity.sprite.AnimatedSprite;
-import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.entity.text.ChangeableText;
-import org.anddev.andengine.entity.text.Text;
 import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.font.Font;
 import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
-import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.source.AssetBitmapTextureAtlasSource;
-import org.anddev.andengine.opengl.texture.region.TextureRegion;
-import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
-import org.anddev.andengine.util.HorizontalAlign;
-
-import android.R.integer;
 import android.os.Bundle;
-import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.view.Menu;
 
 public class ShopScreen extends BaseGameActivity {
 
@@ -42,16 +32,13 @@ public class ShopScreen extends BaseGameActivity {
 	private Camera MyCamera;// Biến này thường để cấu hình màn hình
 	private Scene MyScene;// Quản lý những gì bạn vẽ.
 
-	private Shop_Item item_s1;
-	private Shop_Item item_s2;
-	private Shop_Item item_s3;
-	private Shop_Item item_s4;
-
-	private AnimationSprite spriteMoney;
-	private AnimationSprite spriteNext;
-	private AnimationSprite spriteBuy;
+	private AnimationSprite box_money;
+	private ArrayList<Shop_Item> listItem = new ArrayList<Shop_Item>();
+	private AnimationSprite btn_Next;
+	private AnimationSprite btn_buy;
 	private AnimationSprite spriteSeller1;
 	private AnimationSprite spriteSeller2;
+	ChangeableText money_value;
 
 	private RepeatingSpriteBackground mGrassBackground;// Khai báo đối tượng
 
@@ -78,29 +65,13 @@ public class ShopScreen extends BaseGameActivity {
 		this.mGrassBackground = new RepeatingSpriteBackground(WIDTH, HEIGHT,
 				this.mEngine.getTextureManager(),
 				new AssetBitmapTextureAtlasSource(this, "shop_background.png"));
-
 		MyScene = new Scene();
 
-		this.spriteMoney = new AnimationSprite("money.png", this, mEngine, 110,
+		this.box_money = new AnimationSprite("money.png", this, mEngine, 110,
 				210, MyScene, 256, 128, 1, 1);
-		this.spriteBuy = new AnimationSprite("s_buy.png", this, mEngine, 300,
+		this.btn_buy = new AnimationSprite("s_buy.png", this, mEngine, 300,
 				200, MyScene, 256, 128, 1, 1);
-
-		/*
-		 * this.spriteBuy.setAnimatedSprite(new
-		 * AnimatedSprite(this.spriteBuy.getX(), this.spriteBuy.getY(),
-		 * this.spriteBuy.getTiledTextureRegion()) {
-		 * 
-		 * @Override public boolean onAreaTouched(final TouchEvent
-		 * pSceneTouchEvent, final float pTouchAreaLocalX, final float
-		 * pTouchAreaLocalY) { if (pSceneTouchEvent.getAction() ==
-		 * TouchEvent.ACTION_DOWN) { if(spriteSeller1.isVisible) {
-		 * spriteSeller1.setVisible(false); spriteSeller2.setVisible(true);
-		 * 
-		 * } else { spriteSeller1.setVisible(true);
-		 * spriteSeller2.setVisible(false); } } return true; } });
-		 */
-		this.spriteNext = new AnimationSprite("s_next.png", this, mEngine, 420,
+		this.btn_Next = new AnimationSprite("s_next.png", this, mEngine, 420,
 				205, MyScene, 256, 128, 1, 1);
 		this.spriteSeller1 = new AnimationSprite("seller1.png", this, mEngine,
 				300, 0, MyScene, 256, 256, 1, 1);
@@ -117,14 +88,18 @@ public class ShopScreen extends BaseGameActivity {
 		this.mEngine.getTextureManager().loadTexture(this.mFontTexture);
 		this.mEngine.getFontManager().loadFont(this.mFont);
 
-		this.item_s1 = new Shop_Item("s_1.png", this, 180, 150, 180, 190, 300,
-				MyScene, this.mFont, this.mEngine);
-		this.item_s2 = new Shop_Item("s_2.png", this, 100, 145, 100, 190, 100,
-				MyScene, this.mFont, this.mEngine);
-		this.item_s3 = new Shop_Item("s_3.png", this, 250, 150, 250, 190, 200,
-				MyScene, this.mFont, this.mEngine);
-		this.item_s4 = new Shop_Item("s_4.png", this, 20, 140, 20, 190, 150,
-				MyScene, this.mFont, this.mEngine);
+		Shop_Item item_s1 = new Shop_Item("s_1.png", this, 180, 150, 180, 190,
+				300, MyScene, this.mFont, this.mEngine);
+		Shop_Item item_s2 = new Shop_Item("s_2.png", this, 100, 145, 100, 190,
+				100, MyScene, this.mFont, this.mEngine);
+		Shop_Item item_s3 = new Shop_Item("s_3.png", this, 250, 150, 250, 190,
+				200, MyScene, this.mFont, this.mEngine);
+		Shop_Item item_s4 = new Shop_Item("s_4.png", this, 20, 140, 20, 190,
+				150, MyScene, this.mFont, this.mEngine);
+		listItem.add(item_s1);
+		listItem.add(item_s2);
+		listItem.add(item_s3);
+		listItem.add(item_s4);
 
 	}
 
@@ -138,14 +113,24 @@ public class ShopScreen extends BaseGameActivity {
 			public boolean onSceneTouchEvent(final Scene pScene,
 					final TouchEvent pSceneTouchEvent) {
 				if (pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN) {
-					if (spriteBuy.isTaped(pSceneTouchEvent.getX(),
+					if (btn_buy.isTaped(pSceneTouchEvent.getX(),
 							pSceneTouchEvent.getY())) {
-						System.out
-								.println("MyScene onSceneTouchEvent: chạm vào màn hình");
-						System.out.println("Tọa độ X = "
-								+ pSceneTouchEvent.getX());
-						System.out.println("Tọa độ Y = "
-								+ pSceneTouchEvent.getY());
+						int cost = 0;
+						for (int i = 0; i < listItem.size(); i++) {
+							if (listItem.get(i).isChoosed()) {
+								cost += listItem.get(i).getCost();
+							}
+						}
+
+						if (money >= cost) {
+							money -= cost;
+							for (int i = 0; i < listItem.size(); i++) {
+								if (listItem.get(i).isChoosed()) {
+									listItem.get(i).setChoosed(false);
+								}
+							}
+						}
+
 						if (spriteSeller1.isVisible) {
 							spriteSeller1.setVisible(false);
 							spriteSeller2.setVisible(true);
@@ -159,32 +144,13 @@ public class ShopScreen extends BaseGameActivity {
 				return true;
 			}
 		});
-		/*
-		 * this.MyScene.registerTouchArea(spriteBuy.getAnimatedSprite());
-		 * this.spriteBuy.animatedSprite = new
-		 * AnimatedSprite(spriteBuy.X,spriteBuy.Y,
-		 * spriteBuy.getTiledTextureRegion()) {
-		 * 
-		 * @Override public boolean onAreaTouched(final TouchEvent
-		 * pSceneTouchEvent, final float pTouchAreaLocalX, final float
-		 * pTouchAreaLocalY) { if (pSceneTouchEvent.getAction() ==
-		 * TouchEvent.ACTION_DOWN) { if(spriteSeller1.isVisible) {
-		 * spriteSeller1.setVisible(false); spriteSeller2.setVisible(true);
-		 * 
-		 * } else { spriteSeller1.setVisible(true);
-		 * spriteSeller2.setVisible(false); } } return true; } };
-		 */
-		// MyScene.attachChild(spriteBuy.getAnimatedSprite());
-		// ======================================LẮNG NGHE SỰ KIỆN KHI CHẠM VÀO
-		// ANIMATEDSPRITE=====================================================================
+		final ChangeableText lbl_money = new ChangeableText(60, 215,
+				this.mFont, "Money", 10);
+		MyScene.attachChild(lbl_money);
 
-		final ChangeableText txtmoney = new ChangeableText(60, 215, this.mFont,
-				"Money", 10);
-		MyScene.attachChild(txtmoney);
-
-		final ChangeableText money2 = new ChangeableText(115, 215, this.mFont,
+		money_value = new ChangeableText(115, 215, this.mFont,
 				Integer.toString(money), 10);
-		MyScene.attachChild(money2);
+		MyScene.attachChild(money_value);
 
 		// ===========================================================================================================
 		// Cập nhật (coi như vòn lặp hoạt cảnh)
@@ -200,6 +166,10 @@ public class ShopScreen extends BaseGameActivity {
 				try {
 					// Tạm dừng cập nhật trong 10 ms
 					Thread.sleep(10);
+					for (int i = 0; i < listItem.size(); i++)
+						listItem.get(i).update();
+					money_value.setText(Integer.toString(money));
+
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
